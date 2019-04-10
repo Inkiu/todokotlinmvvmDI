@@ -29,7 +29,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.supportLibraryVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
+
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+
+    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
 
     testImplementation "junit:junit:$rootProject.jnitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
