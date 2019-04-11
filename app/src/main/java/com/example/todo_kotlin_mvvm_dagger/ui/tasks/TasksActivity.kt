@@ -1,6 +1,8 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.clean.domain.HelloUseCase
 import dagger.android.support.DaggerAppCompatActivity
@@ -11,22 +13,19 @@ import javax.inject.Inject
 class TasksActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var useCase: HelloUseCase
-
-    private var integer = 1
+    lateinit var viewModelFactory: TasksViewModelFactory
+    lateinit var viewModel: TasksViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasks)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TasksViewModel::class.java)
+            .also { observe(it) }
+        viewModel.onCreate()
     }
 
-    override fun onResume() {
-        super.onResume()
-        integer += 1
-        useCase.invoke(HelloUseCase.Param(integer))
-            .subscribeBy(
-                onError = { /* no-op */ },
-                onSuccess = { taskTextView.text = it.greetingMessage }
-            )
+    private fun observe(viewModel: TasksViewModel) {
+        viewModel.helloLiveData.observe(this, Observer { taskTextView.text = it })
     }
 }
