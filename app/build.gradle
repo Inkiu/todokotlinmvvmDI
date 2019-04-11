@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -33,6 +35,13 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.jetpackVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.jetpackVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.jetpackVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.jetpackVersion"
+    implementation "androidx.room:room-common:$rootProject.jetpackVersion"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.jetpackVersion"
 
     testImplementation "junit:junit:$rootProject.jnitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
