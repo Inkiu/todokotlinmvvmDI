@@ -10,7 +10,7 @@ class TasksViewModel(
 
     val helloLiveData = MutableLiveData<String>()
 
-    fun onCreate() {
+    override fun onCreate() {
         helloUseCase.invoke(HelloUseCase.Param(1))
             .subscribe { result ->
                 when (result) {
