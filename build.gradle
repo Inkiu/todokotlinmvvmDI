@@ -35,6 +35,9 @@ ext {
 
     // app
     daggerVersion = '2.16'
+    rxJavaVersion = '2.2.0'
+    rxKotlinVersion = '2.2.0'
+    rxAndroidVersion = '2.0.2'
 
     // test
     jnitVersion = '4.12'

@@ -51,6 +51,11 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
 
+    // RX
+    implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$project.rxKotlinVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
