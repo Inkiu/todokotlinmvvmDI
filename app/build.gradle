@@ -14,7 +14,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -41,14 +41,15 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.jetpackVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.jetpackVersion"
     implementation "androidx.room:room-common:$rootProject.jetpackVersion"
-    annotationProcessor "androidx.room:room-compiler:$rootProject.jetpackVersion"
+    kapt "androidx.room:room-compiler:$rootProject.jetpackVersion"
 
     // Dagger dependencies
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
 
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
