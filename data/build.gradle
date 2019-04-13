@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
@@ -8,42 +8,35 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
-        applicationId "com.example.todo_kotlin_mvvm_dagger"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation project(path: ':domain')
-    implementation project(path: ':data')
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.supportLibraryVersion"
-    implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
-    implementation "com.google.android.material:material:$rootProject.supportLibraryVersion"
-
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-
-    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
-
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.jetpackVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.jetpackVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.jetpackVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.jetpackVersion"
+    // Room
+    implementation "androidx.room:room-common:$rootProject.jetpackVersion"
+    implementation "androidx.room:room-rxjava2:$rootProject.jetpackVersion"
+    kapt "androidx.room:room-compiler:$rootProject.jetpackVersion"
 
     // Dagger dependencies
     implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
@@ -52,11 +45,6 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-
-    // RX
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
 
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
