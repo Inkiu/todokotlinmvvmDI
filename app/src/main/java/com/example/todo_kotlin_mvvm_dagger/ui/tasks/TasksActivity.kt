@@ -1,6 +1,8 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
@@ -30,7 +32,7 @@ class TasksActivity : BaseActivity() {
         // Set up the toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Set up the navigation drawer
         drawer_layout.setStatusBarBackground(R.color.colorPrimaryDark)
@@ -39,15 +41,16 @@ class TasksActivity : BaseActivity() {
         // Fragment
         supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
             addFragment(taskFragmentProvider.get(), R.id.contentFrame)
-
-        // Consume savedInstance
-        savedInstanceState?.also { consumeStavedInstanceState(it) }
-
-        observe(viewModel)
     }
 
-    private fun observe(viewModel: TasksViewModel) {
-//        viewModel.helloLiveData.observe(this, Observer { taskTextView.text = it })
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            android.R.id.home -> {
+                drawer_layout.openDrawer(GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun setupDrawerContent(navigationView: NavigationView) {
@@ -61,9 +64,5 @@ class TasksActivity : BaseActivity() {
             drawer_layout.closeDrawers()
             true
         }
-    }
-
-    private fun consumeStavedInstanceState(state: Bundle) {
-
     }
 }

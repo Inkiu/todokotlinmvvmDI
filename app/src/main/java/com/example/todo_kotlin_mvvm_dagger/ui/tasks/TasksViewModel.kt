@@ -19,4 +19,9 @@ class TasksViewModel(
                 }
             }.composite()
     }
+
+    /* Open Methods */
+    fun onFilterSelected(filterType: TasksFilterType) {
+
+    }
 }
