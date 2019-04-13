@@ -31,6 +31,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.supportLibraryVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
+    implementation "com.google.android.material:material:$rootProject.supportLibraryVersion"
 
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
 
