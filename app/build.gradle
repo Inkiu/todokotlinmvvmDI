@@ -25,6 +25,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':domain')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -53,9 +55,9 @@ dependencies {
     kapt "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
 
     // RX
-    implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxkotlin:$project.rxKotlinVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
 
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
