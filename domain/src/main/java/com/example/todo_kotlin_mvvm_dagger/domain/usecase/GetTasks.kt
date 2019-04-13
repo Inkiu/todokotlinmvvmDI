@@ -10,7 +10,7 @@ class GetTasks(
     private val taskRepository: ITaskRepository
 ) : ISingleUseCase<GetTasks.Param, GetTasks.Result> {
 
-    override fun excute(param: Param): Single<Result> {
+    override fun invoke(param: Param): Single<Result> {
         return taskRepository.loadTasks()
             .map { Result.Success(it) }
             .cast(Result::class.java)

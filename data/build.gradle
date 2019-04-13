@@ -37,10 +37,6 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$rootProject.jetpackVersion"
     kapt "androidx.room:room-compiler:$rootProject.jetpackVersion"
 
-    // RX
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
-
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"

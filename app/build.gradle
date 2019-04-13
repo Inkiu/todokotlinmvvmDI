@@ -44,17 +44,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$rootProject.jetpackVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.jetpackVersion"
 
-    // Dagger dependencies
-    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-    kapt "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
-
     // RX
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
 
     // Test Dependencies
