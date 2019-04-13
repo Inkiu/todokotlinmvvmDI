@@ -5,8 +5,9 @@ import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class GetTasks(
+class GetTasks @Inject constructor(
     private val taskRepository: ITaskRepository
 ) : ISingleUseCase<GetTasks.Param, GetTasks.Result> {
 
@@ -22,7 +23,7 @@ class GetTasks(
     )
 
     sealed class Result {
-        class Success(tasks: List<Task>) : Result()
-        class Failure(e: Throwable) : Result()
+        class Success(val tasks: List<Task>) : Result()
+        class Failure(val e: Throwable) : Result()
     }
 }

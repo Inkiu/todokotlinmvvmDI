@@ -31,11 +31,20 @@ android {
 dependencies {
     implementation project(path: ':domain')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // Room
     implementation "androidx.room:room-common:$rootProject.jetpackVersion"
     implementation "androidx.room:room-rxjava2:$rootProject.jetpackVersion"
     kapt "androidx.room:room-compiler:$rootProject.jetpackVersion"
+
+    // Dagger dependencies
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
 
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
