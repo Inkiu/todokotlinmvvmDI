@@ -3,9 +3,14 @@ package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_kotlin_mvvm_dagger.R
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.tasks_frag.*
 import javax.inject.Inject
 
 class TasksFragment @Inject constructor(): DaggerFragment() {
@@ -16,11 +21,35 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
         ViewModelProviders.of(requireActivity(), viewModelFactory).get(TasksViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.tasks_frag, container, false)
+    private val tasksAdapter = TasksAdapter()
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.tasks_frag, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Setup Recycler View
+        tasks_list.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        tasks_list.adapter = tasksAdapter
+
+        // Setup Floating Action Button
+        // TODO
+
+        // Setup RefreshLayout
+        refresh_layout.setColorSchemeColors(
+            ContextCompat.getColor(requireContext(), R.color.colorPrimary),
+            ContextCompat.getColor(requireContext(), R.color.colorAccent),
+            ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
+        )
+        refresh_layout.setScrollUpChild(tasks_list)
+        refresh_layout.setOnRefreshListener { viewModel.onTaskRefresh() }
+
+        // Option Menu
         setHasOptionsMenu(true)
-        return root
+
+        // Observe
+        observe(viewModel)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -34,6 +63,15 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
             R.id.menu_refresh -> { } // TODO
         }
         return true
+    }
+
+    private fun observe(viewModel: TasksViewModel) {
+        viewModel.taskData.observe(this, Observer {
+            tasksLL.visibility = if (it.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+            noTasks.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            tasksAdapter.updateTask(it)
+        })
+        viewModel.loadingState.observe(this, Observer { refresh_layout.isRefreshing = it })
     }
 
     private fun showFilteringPopUpMenu() {
@@ -51,4 +89,5 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
         })
         popup.show()
     }
+
 }

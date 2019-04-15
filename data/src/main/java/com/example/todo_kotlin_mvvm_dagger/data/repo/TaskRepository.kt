@@ -11,7 +11,10 @@ class TaskRepository @Inject constructor(
 ) : ITaskRepository {
     override fun loadTasks(): Single<List<Task>> {
         return Single.fromCallable {
-            listOf(Task(0, "TEST 1", "This is fake task.", false))
+            listOf(
+                Task(0, "TEST 1", "This is fake task. 1", true),
+                Task(1, "TEST 2", "This is fake task. 2", false)
+            )
         }
     }
 }
