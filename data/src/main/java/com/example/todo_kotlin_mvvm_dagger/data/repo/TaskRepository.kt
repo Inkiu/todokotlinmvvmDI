@@ -1,13 +1,14 @@
 package com.example.todo_kotlin_mvvm_dagger.data.repo
 
 import android.content.Context
+import com.example.todo_kotlin_mvvm_dagger.data.ApplicationContext
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : ITaskRepository {
     override fun loadTasks(): Single<List<Task>> {
         return Single.fromCallable {
