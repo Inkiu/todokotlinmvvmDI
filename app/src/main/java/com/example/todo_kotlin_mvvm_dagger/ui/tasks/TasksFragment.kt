@@ -11,11 +11,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_kotlin_mvvm_dagger.R
+import com.example.todo_kotlin_mvvm_dagger.data.PerActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.tasks_act.*
 import kotlinx.android.synthetic.main.tasks_frag.*
 import javax.inject.Inject
 
+@PerActivity
 class TasksFragment @Inject constructor(): DaggerFragment() {
 
     @Inject
