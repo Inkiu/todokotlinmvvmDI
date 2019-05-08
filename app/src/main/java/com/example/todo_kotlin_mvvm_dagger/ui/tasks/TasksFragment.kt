@@ -1,8 +1,10 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_kotlin_mvvm_dagger.R
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.tasks_act.*
 import kotlinx.android.synthetic.main.tasks_frag.*
 import javax.inject.Inject
 
@@ -32,9 +35,6 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
         // Setup Recycler View
         tasks_list.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         tasks_list.adapter = tasksAdapter
-
-        // Setup Floating Action Button
-        // TODO
 
         // Setup RefreshLayout
         refresh_layout.setColorSchemeColors(

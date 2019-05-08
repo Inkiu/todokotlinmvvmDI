@@ -2,7 +2,9 @@ package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
@@ -38,9 +40,15 @@ class TasksActivity : BaseActivity() {
         drawer_layout.setStatusBarBackground(R.color.colorPrimaryDark)
         nav_view?.also { setupDrawerContent(it) }
 
+        // Setup Floating Action Button
+        fab_add_task.setOnClickListener { viewModel.onAddNewTask() }
+
         // Fragment
         supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
             addFragment(taskFragmentProvider.get(), R.id.contentFrame)
+
+        // observe
+        observe(viewModel)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -64,5 +72,11 @@ class TasksActivity : BaseActivity() {
             drawer_layout.closeDrawers()
             true
         }
+    }
+
+    private fun observe(viewModel: TasksViewModel) {
+        viewModel.navigateToAddTask.observe(this, Observer {
+            Toast.makeText(this, "Add New Task Requested", Toast.LENGTH_SHORT).show()
+        })
     }
 }
