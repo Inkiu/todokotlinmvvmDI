@@ -1,5 +1,6 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.R
+import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
 import com.google.android.material.navigation.NavigationView
 import dagger.Lazy
 import kotlinx.android.synthetic.main.tasks_act.*
@@ -76,7 +78,10 @@ class TasksActivity : BaseActivity() {
 
     private fun observe(viewModel: TasksViewModel) {
         viewModel.navigateToAddTask.observe(this, Observer {
-            Toast.makeText(this, "Add New Task Requested", Toast.LENGTH_SHORT).show()
+            it.getContentIfNotHandled()?.let {
+                val intent = Intent(this, AddEditTaskActivity::class.java)
+                startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK)
+            }
         })
     }
 }
