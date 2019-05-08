@@ -3,9 +3,7 @@ package com.example.todo_kotlin_mvvm_dagger.di
 import android.app.Application
 import com.example.todo_kotlin_mvvm_dagger.TodoApplication
 import com.example.todo_kotlin_mvvm_dagger.data.di.DataModule
-import com.example.todo_kotlin_mvvm_dagger.di.modules.ActivityBindingModule
-import com.example.todo_kotlin_mvvm_dagger.di.modules.AppModule
-import com.example.todo_kotlin_mvvm_dagger.di.modules.TasksModule
+import com.example.todo_kotlin_mvvm_dagger.ui.tasks.TasksModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
