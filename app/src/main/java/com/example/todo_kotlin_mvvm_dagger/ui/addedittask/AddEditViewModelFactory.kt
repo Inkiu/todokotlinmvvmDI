@@ -6,12 +6,12 @@ import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class AddEditViewModelFactory @Inject constructor(
-
+    private val taskId: String
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AddEditViewModel::class.java)) {
-            return AddEditViewModel() as T
+            return AddEditViewModel(taskId) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

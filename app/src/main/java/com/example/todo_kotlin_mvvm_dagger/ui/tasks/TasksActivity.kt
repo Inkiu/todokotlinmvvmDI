@@ -79,8 +79,7 @@ class TasksActivity : BaseActivity() {
     private fun observe(viewModel: TasksViewModel) {
         viewModel.navigateToAddTask.observe(this, Observer {
             it.getContentIfNotHandled()?.let {
-                val intent = Intent(this, AddEditTaskActivity::class.java)
-                startActivityForResult(intent, AddEditTaskActivity.REQUEST_ADD_TASK)
+                startActivityForResult(AddEditTaskActivity.createIntent(this), AddEditTaskActivity.REQUEST_ADD_TASK)
             }
         })
     }
