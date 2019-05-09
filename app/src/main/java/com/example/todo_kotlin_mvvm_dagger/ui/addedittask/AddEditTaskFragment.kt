@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.R
+import com.example.todo_kotlin_mvvm_dagger.extensions.addSimpleTextChangeListener
 import com.example.todo_kotlin_mvvm_dagger.data.PerActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
@@ -30,6 +31,9 @@ class AddEditTaskFragment @Inject constructor(): DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         retainInstance = true
+
+        add_task_title.addSimpleTextChangeListener { s, _ -> viewModel.onTitleChange(s.toString()) }
+        add_task_description.addSimpleTextChangeListener { s, _ -> viewModel.onContentChange(s.toString()) }
 
         observe(viewModel)
     }
