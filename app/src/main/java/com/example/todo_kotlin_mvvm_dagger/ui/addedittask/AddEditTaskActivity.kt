@@ -1,8 +1,10 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.addedittask
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
@@ -64,7 +66,10 @@ class AddEditTaskActivity : BaseActivity() {
     }
 
     private fun observe(viewModel: AddEditViewModel) {
-
+        viewModel.navigateBack.observe(this, Observer {
+            setResult(Activity.RESULT_OK)
+            finish()
+        })
     }
 
 }
