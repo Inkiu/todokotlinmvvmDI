@@ -1,9 +1,9 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -60,6 +60,14 @@ class TasksActivity : BaseActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // TODO - correct implementation
+        if (AddEditTaskActivity.REQUEST_ADD_TASK == requestCode && resultCode == Activity.RESULT_OK) {
+            viewModel.onActivityResult()
         }
     }
 

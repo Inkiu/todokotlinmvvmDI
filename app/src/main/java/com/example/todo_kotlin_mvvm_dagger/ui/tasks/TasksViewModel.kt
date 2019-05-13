@@ -24,6 +24,10 @@ class TasksViewModel(
         loadTasks()
     }
 
+    fun onActivityResult() {
+        loadTasks()
+    }
+
     fun onTaskRefresh() {
         loadTasks()
     }
