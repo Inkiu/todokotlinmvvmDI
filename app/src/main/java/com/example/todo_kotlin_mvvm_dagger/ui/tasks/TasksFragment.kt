@@ -62,9 +62,9 @@ class TasksFragment @Inject constructor(): DaggerFragment(), TasksAdapter.TaskIt
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.menu_clear -> { } // TODO
+            R.id.menu_clear -> { viewModel.onClearTask() }
             R.id.menu_filter -> { showFilteringPopUpMenu() }
-            R.id.menu_refresh -> { } // TODO
+            R.id.menu_refresh -> { viewModel.onTaskRefresh() }
         }
         return true
     }
