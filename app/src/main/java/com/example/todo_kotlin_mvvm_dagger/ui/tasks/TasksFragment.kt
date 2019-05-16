@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.data.PerActivity
+import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.tasks_act.*
 import kotlinx.android.synthetic.main.tasks_frag.*
@@ -74,6 +75,16 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
             tasksAdapter.updateTask(it)
         })
         viewModel.loadingState.observe(this, Observer { refresh_layout.isRefreshing = it })
+        viewModel.currentFilterType.observe(this, Observer { changeFilterNotice(it) })
+    }
+
+    private fun changeFilterNotice(filter: TaskFilterType) {
+        val textId = when (filter) {
+            TaskFilterType.ALL_TASKS -> R.string.label_all
+            TaskFilterType.COMPLETED_TASKS -> R.string.label_completed
+            TaskFilterType.ACTIVE_TASKS -> R.string.label_active
+        }
+        filteringLabel.text = resources.getString(textId)
     }
 
     private fun showFilteringPopUpMenu() {
@@ -81,11 +92,12 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
         popup.menuInflater.inflate(R.menu.filter_tasks, popup.menu)
         popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem): Boolean {
-                when (item.itemId) {
-                    R.id.active -> {} // TODO
-                    R.id.completed -> {} // TODO
-                    else -> {} // TODO
+                val filterType = when (item.itemId) {
+                    R.id.active -> TaskFilterType.ACTIVE_TASKS
+                    R.id.completed -> TaskFilterType.COMPLETED_TASKS
+                    else -> TaskFilterType.ALL_TASKS
                 }
+                viewModel.onFilterSelected(filterType)
                 return true
             }
         })

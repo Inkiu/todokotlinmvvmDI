@@ -16,28 +16,34 @@ class TasksViewModel(
 
     val taskData = MutableLiveData<List<Task>>()
     val loadingState = MutableLiveData<Boolean>()
+    val currentFilterType = MutableLiveData<TaskFilterType>().apply { value = TaskFilterType.ALL_TASKS }
 
     /* events */
     val navigateToAddTask = MutableLiveData<Event<Unit>>()
 
     override fun onCreate() {
-        loadTasks()
+        loadTasks(currentFilterType.value!!)
     }
 
     fun onActivityResult() {
-        loadTasks()
+        loadTasks(currentFilterType.value!!)
     }
 
     fun onTaskRefresh() {
-        loadTasks()
+        loadTasks(currentFilterType.value!!)
     }
 
     fun onAddNewTask() {
         navigateToAddTask.value = Event(Unit)
     }
 
-    private fun loadTasks() {
-        getTasks(GetTasks.Param(TaskFilterType.ACTIVE_TASKS))
+    fun onFilterSelected(filterType: TaskFilterType) {
+        currentFilterType.value = filterType
+        loadTasks(currentFilterType.value!!)
+    }
+
+    private fun loadTasks(filterType: TaskFilterType = TaskFilterType.ALL_TASKS) {
+        getTasks(GetTasks.Param(filterType))
             .doOnSubscribe { loadingState.value = true }
             .doFinally { loadingState.value = false }
             .subscribeBy {
