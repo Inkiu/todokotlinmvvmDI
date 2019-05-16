@@ -39,6 +39,12 @@ class TaskRepository @Inject constructor(
         }
     }
 
+    override fun deleteTasks(taskIdList: List<Long>): Completable {
+        return Completable.fromAction {
+            taskIdList.forEach { tasksDatabase.remove(it) }
+        }
+    }
+
     override fun completeTask(taskId: Long): Completable {
         return Completable.fromAction {
             tasksDatabase[taskId]?.copy(completed = true)?.let {
