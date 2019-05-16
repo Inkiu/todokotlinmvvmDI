@@ -12,7 +12,7 @@ class GetTasks @Inject constructor(
 ) : ISingleUseCase<GetTasks.Param, GetTasks.Result> {
 
     override fun invoke(param: Param): Single<Result> {
-        return taskRepository.loadTasks()
+        return taskRepository.loadTasks(param.filterType)
             .map { Result.Success(it) }
             .cast(Result::class.java)
             .onErrorReturn { Result.Failure(it) }
