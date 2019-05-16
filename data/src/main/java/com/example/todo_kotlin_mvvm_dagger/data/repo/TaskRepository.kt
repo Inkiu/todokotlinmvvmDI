@@ -13,14 +13,14 @@ class TaskRepository @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ITaskRepository {
 
-    private val tasksDatabase = mutableListOf(
-        Task(0, "TEST 1", "This is fake task. 1", true),
-        Task(1, "TEST 2", "This is fake task. 2", false)
+    private val tasksDatabase = mutableMapOf(
+        0L to Task(0, "TEST 1", "This is fake task. 1", true),
+        1L to Task(1, "TEST 2", "This is fake task. 2", false)
     )
 
     override fun loadTasks(filter: TaskFilterType): Single<List<Task>> {
         return Single.fromCallable {
-            tasksDatabase.filter {
+            tasksDatabase.values.filter {
                 when (filter) {
                     TaskFilterType.ALL_TASKS -> true
                     TaskFilterType.COMPLETED_TASKS -> it.completed
@@ -33,7 +33,24 @@ class TaskRepository @Inject constructor(
     override fun saveTasks(tasks: List<Task>): Completable {
         return Completable.fromAction {
             tasks.forEach {
-                tasksDatabase.add(it.copy(uuid = tasksDatabase.size.toLong()))
+                val uuid = tasksDatabase.size.toLong()
+                tasksDatabase[uuid] = it.copy(uuid = uuid)
+            }
+        }
+    }
+
+    override fun completeTask(taskId: Long): Completable {
+        return Completable.fromAction {
+            tasksDatabase[taskId]?.copy(completed = true)?.let {
+                tasksDatabase[taskId] = it
+            }
+        }
+    }
+
+    override fun activeTask(taskId: Long): Completable {
+        return Completable.fromAction {
+            tasksDatabase[taskId]?.copy(completed = false)?.let {
+                tasksDatabase[taskId] = it
             }
         }
     }

@@ -8,4 +8,6 @@ import io.reactivex.Single
 interface ITaskRepository {
     fun loadTasks(filter: TaskFilterType): Single<List<Task>>
     fun saveTasks(tasks: List<Task>): Completable
+    fun completeTask(taskId: Long): Completable
+    fun activeTask(taskId: Long): Completable
 }
