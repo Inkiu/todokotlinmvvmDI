@@ -7,6 +7,7 @@ import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.util.concurrent.atomic.AtomicLong
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(
@@ -17,6 +18,7 @@ class TaskRepository @Inject constructor(
         0L to Task(0, "TEST 1", "This is fake task. 1", true),
         1L to Task(1, "TEST 2", "This is fake task. 2", false)
     )
+    private val uuidMaker = AtomicLong(tasksDatabase.size.toLong())
 
     override fun loadTasks(filter: TaskFilterType): Single<List<Task>> {
         return Single.fromCallable {
@@ -33,7 +35,7 @@ class TaskRepository @Inject constructor(
     override fun saveTasks(tasks: List<Task>): Completable {
         return Completable.fromAction {
             tasks.forEach {
-                val uuid = tasksDatabase.size.toLong()
+                val uuid = uuidMaker.getAndIncrement()
                 tasksDatabase[uuid] = it.copy(uuid = uuid)
             }
         }
