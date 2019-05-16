@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.data.PerActivity
+import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.tasks_act.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.tasks_frag.*
 import javax.inject.Inject
 
 @PerActivity
-class TasksFragment @Inject constructor(): DaggerFragment() {
+class TasksFragment @Inject constructor(): DaggerFragment(), TasksAdapter.TaskItemListener {
 
     @Inject
     lateinit var viewModelFactory: TasksViewModelFactory
@@ -27,7 +28,7 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
         ViewModelProviders.of(requireActivity(), viewModelFactory).get(TasksViewModel::class.java)
     }
 
-    private val tasksAdapter = TasksAdapter()
+    private val tasksAdapter = TasksAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.tasks_frag, container, false)
@@ -66,6 +67,14 @@ class TasksFragment @Inject constructor(): DaggerFragment() {
             R.id.menu_refresh -> { } // TODO
         }
         return true
+    }
+
+    override fun onTaskClick(clickedTask: Task) {
+        viewModel.onTaskSelected(clickedTask)
+    }
+
+    override fun onTaskButtonClick(clickedTask: Task) {
+        viewModel.onTaskButtonSelected(clickedTask)
     }
 
     private fun observe(viewModel: TasksViewModel) {

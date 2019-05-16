@@ -10,7 +10,14 @@ import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import kotlinx.android.synthetic.main.task_item.view.*
 
-class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder>() {
+class TasksAdapter(
+    private val listener: TaskItemListener
+) : RecyclerView.Adapter<TasksAdapter.Holder>() {
+
+    interface TaskItemListener {
+        fun onTaskClick(clickedTask: Task)
+        fun onTaskButtonClick(clickedTask: Task)
+    }
 
     private val taskItems = SortedList<Task>(Task::class.java, TaskSortedCallback())
 
@@ -25,7 +32,7 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder>() {
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val task = taskItems[position]
         holder.bind(task)
-        holder.bindListener(task)
+        holder.bindListener(task, listener)
         // bind Listener
     }
 
@@ -49,8 +56,11 @@ class TasksAdapter : RecyclerView.Adapter<TasksAdapter.Holder>() {
             }
         }
 
-        fun bindListener(task: Task) {
-            itemView.setOnClickListener { Log.d("tmpLog", "bindListener : $task") }
+        fun bindListener(task: Task, listener: TaskItemListener) {
+            with(itemView) {
+                complete.setOnClickListener { listener.onTaskButtonClick(task) }
+                setOnClickListener { listener.onTaskClick(task) }
+            }
         }
     }
 

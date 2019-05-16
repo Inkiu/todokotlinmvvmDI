@@ -1,17 +1,17 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.tasks
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import com.example.todo_kotlin_mvvm_dagger.domain.usecase.GetTasks
+import com.example.todo_kotlin_mvvm_dagger.domain.usecase.UpdateTask
 import com.example.todo_kotlin_mvvm_dagger.events.Event
 import io.reactivex.rxkotlin.subscribeBy
 
 class TasksViewModel(
-    private val getTasks: GetTasks
+    private val getTasks: GetTasks,
+    private val updateTask: UpdateTask
 ) : BaseViewModel() {
 
     val taskData = MutableLiveData<List<Task>>()
@@ -42,6 +42,18 @@ class TasksViewModel(
         loadTasks(currentFilterType.value!!)
     }
 
+    fun onTaskSelected(task: Task) {
+
+    }
+
+    fun onTaskButtonSelected(task: Task) {
+        updateTask(UpdateTask.Param(task.uuid, !task.completed))
+            .subscribeBy(
+                onComplete = { loadTasks(currentFilterType.value!!) },
+                onError = { /* TODO */ }
+            )
+    }
+
     private fun loadTasks(filterType: TaskFilterType = TaskFilterType.ALL_TASKS) {
         getTasks(GetTasks.Param(filterType))
             .doOnSubscribe { loadingState.value = true }
@@ -49,7 +61,7 @@ class TasksViewModel(
             .subscribeBy {
                 when (it) {
                     is GetTasks.Result.Success -> { taskData.value = it.tasks }
-                    is GetTasks.Result.Failure -> Log.d("tmpLog", "onCreate : ${it.e}" )
+                    is GetTasks.Result.Failure -> { /* TODO */  }
                 }
             }
     }
