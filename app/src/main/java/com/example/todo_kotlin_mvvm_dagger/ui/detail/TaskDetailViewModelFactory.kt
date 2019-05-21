@@ -6,12 +6,13 @@ import com.example.todo_kotlin_mvvm_dagger.domain.usecase.GetTask
 import javax.inject.Inject
 
 class TaskDetailViewModelFactory @Inject constructor(
+    private val taskId: Long,
     private val getTask: GetTask
 ): ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TaskDetailViewModel::class.java)) {
-            return TaskDetailViewModel(getTask) as T
+            return TaskDetailViewModel(taskId, getTask) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

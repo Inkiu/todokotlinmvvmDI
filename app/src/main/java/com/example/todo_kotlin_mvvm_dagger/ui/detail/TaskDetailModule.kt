@@ -15,8 +15,8 @@ abstract class TaskDetailModule {
     companion object {
         @Provides
         @PerActivity
-        @JvmStatic fun provideTaskId(activity: TaskDetailActivity): String {
-            return activity.intent.getStringExtra(TaskDetailActivity.ARGUMENT_EDIT_TASK_ID) ?: ""
+        @JvmStatic fun provideTaskId(activity: TaskDetailActivity): Long {
+            return activity.intent.getLongExtra(TaskDetailActivity.ARGUMENT_EDIT_TASK_ID, 0)
         }
     }
 
