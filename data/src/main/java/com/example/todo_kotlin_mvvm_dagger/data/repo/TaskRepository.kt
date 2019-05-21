@@ -32,6 +32,12 @@ class TaskRepository @Inject constructor(
         }
     }
 
+    override fun loadTask(taskId: Long): Single<Task> {
+        return Single.fromCallable {
+            tasksDatabase[taskId]
+        }
+    }
+
     override fun saveTasks(tasks: List<Task>): Completable {
         return Completable.fromAction {
             tasks.forEach {
