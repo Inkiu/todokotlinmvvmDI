@@ -16,7 +16,7 @@ class TaskDetailActivity : BaseActivity() {
     companion object {
         const val ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID"
 
-        fun createIntent(context: Context, taskId: String = ""): Intent {
+        fun createIntent(context: Context, taskId: Long): Intent {
             return Intent(context, TaskDetailActivity::class.java).apply {
                 putExtra(ARGUMENT_EDIT_TASK_ID, taskId)
             }

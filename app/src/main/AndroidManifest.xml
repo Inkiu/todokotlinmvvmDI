@@ -11,10 +11,10 @@
             android:theme="@style/AppTheme"
             android:name=".TodoApplication">
         <activity android:name=".ui.addedittask.AddEditTaskActivity"/>
+        <activity android:name=".ui.detail.TaskDetailActivity"/>
         <activity android:name=".ui.tasks.TasksActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

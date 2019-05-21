@@ -11,6 +11,7 @@ import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
+import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailActivity
 import com.google.android.material.navigation.NavigationView
 import dagger.Lazy
 import kotlinx.android.synthetic.main.tasks_act.*
@@ -88,6 +89,11 @@ class TasksActivity : BaseActivity() {
         viewModel.navigateToAddTask.observe(this, Observer {
             it.getContentIfNotHandled()?.let {
                 startActivityForResult(AddEditTaskActivity.createIntent(this), AddEditTaskActivity.REQUEST_ADD_TASK)
+            }
+        })
+        viewModel.navigateToDetailTask.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {  task ->
+                startActivity(TaskDetailActivity.createIntent(this, task.uuid))
             }
         })
     }

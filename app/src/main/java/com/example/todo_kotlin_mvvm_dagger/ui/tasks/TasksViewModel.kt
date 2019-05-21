@@ -23,6 +23,7 @@ class TasksViewModel(
 
     /* events */
     val navigateToAddTask = MutableLiveData<Event<Unit>>()
+    val navigateToDetailTask = MutableLiveData<Event<Task>>()
 
     override fun onCreate() {
         loadTasks(currentFilterType.value!!)
@@ -46,7 +47,7 @@ class TasksViewModel(
     }
 
     fun onTaskSelected(task: Task) {
-
+        navigateToDetailTask.value = Event(task)
     }
 
     fun onTaskButtonSelected(task: Task) {
