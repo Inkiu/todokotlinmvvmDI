@@ -68,4 +68,10 @@ class TaskRepository @Inject constructor(
             }
         }
     }
+
+    override fun updateTask(task: Task): Completable {
+        return Completable.fromAction {
+            tasksDatabase[task.uuid] = task.copy()
+        }
+    }
 }

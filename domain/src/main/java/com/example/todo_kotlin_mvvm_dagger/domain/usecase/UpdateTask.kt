@@ -1,6 +1,7 @@
 package com.example.todo_kotlin_mvvm_dagger.domain.usecase
 
 import com.example.todo_kotlin_mvvm_dagger.domain.ICompletableUseCase
+import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -11,12 +12,18 @@ class UpdateTask @Inject constructor(
 ) : ICompletableUseCase<UpdateTask.Param> {
 
     override fun invoke(param: Param): Completable {
-        return if (param.complete) taskRepository.completeTask(param.taskId)
-        else taskRepository.activeTask(param.taskId)
+        return taskRepository.loadTask(param.taskId)
+            .flatMapCompletable {
+                val newTask = Task(it.uuid, param.title ?: it.title, param.content ?: it.description, param.complete ?: it.completed)
+                taskRepository.updateTask(newTask)
+            }
     }
 
+    // TODO nullable?
     data class Param(
         val taskId: Long,
-        val complete: Boolean
+        val complete: Boolean? = null,
+        val title: String? = null,
+        val content: String? = null
     )
 }

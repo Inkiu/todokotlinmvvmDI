@@ -13,6 +13,9 @@ interface ITaskRepository {
 
     fun deleteTasks(taskIdList: List<Long>): Completable
 
+    @Deprecated("use updateTask")
     fun completeTask(taskId: Long): Completable
+    @Deprecated("use updateTask")
     fun activeTask(taskId: Long): Completable
+    fun updateTask(task: Task): Completable
 }
