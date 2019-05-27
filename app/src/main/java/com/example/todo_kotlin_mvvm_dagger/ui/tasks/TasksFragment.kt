@@ -6,20 +6,17 @@ import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import kotlinx.android.synthetic.main.tasks_frag.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class TasksFragment : Fragment(), TasksAdapter.TaskItemListener {
 
-    lateinit var viewModelFactory: TasksViewModelFactory
-    private val viewModel: TasksViewModel by lazy {
-        ViewModelProviders.of(requireActivity(), viewModelFactory).get(TasksViewModel::class.java)
-    }
+    private val viewModel: TasksViewModel by sharedViewModel()
 
     private val tasksAdapter = TasksAdapter(this)
 
