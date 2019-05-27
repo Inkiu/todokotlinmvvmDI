@@ -42,8 +42,8 @@ class TaskDetailActivity : BaseActivity() {
 
         // Set up the toolbar.
         setSupportActionBar(toolbar)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         // Fragment
         supportFragmentManager.findFragmentById(R.id.contentFrame) ?:

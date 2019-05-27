@@ -29,6 +29,10 @@ class TasksViewModel(
         loadTasks(currentFilterType.value!!)
     }
 
+    override fun onResume() {
+        loadTasks(currentFilterType.value!!)
+    }
+
     fun onActivityResult() {
         loadTasks(currentFilterType.value!!)
     }

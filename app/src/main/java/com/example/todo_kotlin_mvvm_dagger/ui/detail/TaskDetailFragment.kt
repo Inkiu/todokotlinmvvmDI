@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.data.PerActivity
+import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.taskdetail_frag.*
 import javax.inject.Inject
@@ -31,6 +32,9 @@ class TaskDetailFragment @Inject constructor(): DaggerFragment() {
         retainInstance = true
 
         observe(viewModel)
+        task_detail_complete.setOnCheckedChangeListener { _, checked ->
+            viewModel.onTaskCompleteChange(checked)
+        }
     }
 
     private fun observe(viewModel: TaskDetailViewModel) {
@@ -44,11 +48,15 @@ class TaskDetailFragment @Inject constructor(): DaggerFragment() {
             if (it) task_detail_description.text = getString(R.string.loading)
         })
         viewModel.currentTask.observe(this, Observer {
-            task_detail_title.visibility = View.VISIBLE
-            task_detail_description.visibility = View.VISIBLE
-            task_detail_title.text = it.title
-            task_detail_description.text = it.description
+            showTask(it)
         })
+    }
 
+    private fun showTask(task: Task) {
+        task_detail_title.visibility = View.VISIBLE
+        task_detail_description.visibility = View.VISIBLE
+        task_detail_title.text = task.title
+        task_detail_description.text = task.description
+        task_detail_complete.isChecked = task.completed
     }
 }

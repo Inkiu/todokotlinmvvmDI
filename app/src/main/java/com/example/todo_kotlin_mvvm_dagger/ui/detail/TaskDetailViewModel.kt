@@ -4,12 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.usecase.GetTask
+import com.example.todo_kotlin_mvvm_dagger.domain.usecase.UpdateTask
 import com.example.todo_kotlin_mvvm_dagger.events.Event
 import io.reactivex.rxkotlin.subscribeBy
 
 class TaskDetailViewModel(
     private val taskId: Long,
-    private val getTask: GetTask
+    private val getTask: GetTask,
+    private val updateTask: UpdateTask
 ) :  BaseViewModel() {
 
     val currentTask = MutableLiveData<Task>()
@@ -29,6 +31,14 @@ class TaskDetailViewModel(
                     error.value = Event(ErrorType.UNKNOWN_ERROR)
                 }
             }
+    }
+
+    fun onTaskCompleteChange(complete: Boolean) {
+        updateTask(UpdateTask.Param(taskId, complete))
+            .subscribeBy(
+                onError = { /* TODO */ },
+                onComplete = { /* no-op */ }
+            )
     }
 
     enum class ErrorType {
