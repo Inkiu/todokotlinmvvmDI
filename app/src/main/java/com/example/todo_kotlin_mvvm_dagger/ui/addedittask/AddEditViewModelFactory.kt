@@ -2,12 +2,14 @@ package com.example.todo_kotlin_mvvm_dagger.ui.addedittask
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.todo_kotlin_mvvm_dagger.data.PerActivity
 import com.example.todo_kotlin_mvvm_dagger.domain.usecase.CreateTasks
 import com.example.todo_kotlin_mvvm_dagger.domain.usecase.GetTask
 import com.example.todo_kotlin_mvvm_dagger.domain.usecase.UpdateTask
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
+@PerActivity
 class AddEditViewModelFactory @Inject constructor(
     private val taskId: Long,
     private val getTask: GetTask,
