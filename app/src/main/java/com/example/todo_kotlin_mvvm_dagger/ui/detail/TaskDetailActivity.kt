@@ -10,6 +10,10 @@ import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
 import kotlinx.android.synthetic.main.taskdetail_act.*
+import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.ParametersDefinition
+import org.koin.core.parameter.parametersOf
 
 class TaskDetailActivity : BaseActivity() {
 
@@ -23,12 +27,11 @@ class TaskDetailActivity : BaseActivity() {
         }
     }
 
-    lateinit var viewModelFactory: TaskDetailViewModelFactory
-    private val viewModel: TaskDetailViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(TaskDetailViewModel::class.java)
+    private val viewModel: TaskDetailViewModel by viewModel {
+        parametersOf(intent.getLongExtra(ARGUMENT_EDIT_TASK_ID, -1L))
     }
 
-    lateinit var taskDetailFragmentProvider: Lazy<TaskDetailFragment>
+    private val detailFragment: TaskDetailFragment by currentScope.inject()
 
     override fun getViewModel(): BaseViewModel {
         return viewModel
@@ -44,8 +47,8 @@ class TaskDetailActivity : BaseActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         // Fragment
-//        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
-//                addFragment(taskDetailFragmentProvider.get(), R.id.contentFrame)
+        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
+                addFragment(detailFragment, R.id.contentFrame)
 
         // Setup Floating Action Button
         fab_edit_task.setOnClickListener {

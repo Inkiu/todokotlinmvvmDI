@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import kotlinx.android.synthetic.main.taskdetail_frag.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class TaskDetailFragment : Fragment() {
 
-    lateinit var viewModelFactory: TaskDetailViewModelFactory
-    private val viewModel: TaskDetailViewModel by lazy {
-        ViewModelProviders.of(requireActivity(), viewModelFactory).get(TaskDetailViewModel::class.java)
-    }
+    private val viewModel: TaskDetailViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.taskdetail_frag, container, false)

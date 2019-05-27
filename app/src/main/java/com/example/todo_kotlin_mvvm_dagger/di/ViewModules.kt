@@ -1,5 +1,8 @@
 package com.example.todo_kotlin_mvvm_dagger.di
 
+import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailActivity
+import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailFragment
+import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailViewModel
 import com.example.todo_kotlin_mvvm_dagger.ui.tasks.TasksActivity
 import com.example.todo_kotlin_mvvm_dagger.ui.tasks.TasksFragment
 import com.example.todo_kotlin_mvvm_dagger.ui.tasks.TasksViewModel
@@ -14,4 +17,11 @@ val taskViewModule = module {
     viewModel { TasksViewModel(get(), get(), get()) }
 }
 
-val viewModules = listOf(taskViewModule)
+val taskDetailViewModule = module {
+    scope(named<TaskDetailActivity>()) {
+        scoped { TaskDetailFragment() }
+    }
+    viewModel { (taskId: Long) -> TaskDetailViewModel(taskId, get(), get(), get()) }
+}
+
+val viewModules = listOf(taskViewModule, taskDetailViewModule)
