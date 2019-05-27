@@ -11,6 +11,9 @@ import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.R
 
 import kotlinx.android.synthetic.main.addtask_act.*
+import org.koin.android.scope.currentScope
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AddEditTaskActivity : BaseActivity() {
 
@@ -26,12 +29,10 @@ class AddEditTaskActivity : BaseActivity() {
         }
     }
 
-    lateinit var viewModelFactory: AddEditViewModelFactory
-    private val viewModel: AddEditViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(AddEditViewModel::class.java)
+    private val viewModel: AddEditViewModel by viewModel {
+        parametersOf(intent.getLongExtra(ARGUMENT_EDIT_TASK_ID, -1L))
     }
-
-    lateinit var addEditTaskFragmentProvider: Lazy<AddEditTaskFragment>
+    private val fragment: AddEditTaskFragment by currentScope.inject()
 
     override fun getViewModel(): BaseViewModel {
         return viewModel
@@ -47,8 +48,8 @@ class AddEditTaskActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Fragment
-//        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
-//                addFragment(addEditTaskFragmentProvider.get(), R.id.contentFrame)
+        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
+                addFragment(fragment, R.id.contentFrame)
 
         // Setup Floating Action Button
         fab_edit_task_done.setOnClickListener { viewModel.onSubmit() }
@@ -68,5 +69,4 @@ class AddEditTaskActivity : BaseActivity() {
             finish()
         })
     }
-
 }

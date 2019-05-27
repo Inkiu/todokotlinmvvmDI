@@ -11,13 +11,11 @@ import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.extensions.addSimpleTextChangeListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.addtask_frag.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class AddEditTaskFragment : Fragment() {
 
-    lateinit var viewModelFactory: AddEditViewModelFactory
-    private val viewModel: AddEditViewModel by lazy {
-        ViewModelProviders.of(requireActivity(), viewModelFactory).get(AddEditViewModel::class.java)
-    }
+    private val viewModel: AddEditViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.addtask_frag, container, false)

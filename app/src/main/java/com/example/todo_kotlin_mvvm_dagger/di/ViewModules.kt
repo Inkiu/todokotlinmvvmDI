@@ -1,5 +1,8 @@
 package com.example.todo_kotlin_mvvm_dagger.di
 
+import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
+import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskFragment
+import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditViewModel
 import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailActivity
 import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailFragment
 import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailViewModel
@@ -24,4 +27,11 @@ val taskDetailViewModule = module {
     viewModel { (taskId: Long) -> TaskDetailViewModel(taskId, get(), get(), get()) }
 }
 
-val viewModules = listOf(taskViewModule, taskDetailViewModule)
+val taskEditViewModule = module {
+    scope(named<AddEditTaskActivity>()) {
+        scoped { AddEditTaskFragment() }
+    }
+    viewModel { (taskId: Long) -> AddEditViewModel(taskId, get(), get(), get()) }
+}
+
+val viewModules = listOf(taskViewModule, taskDetailViewModule, taskEditViewModule)
