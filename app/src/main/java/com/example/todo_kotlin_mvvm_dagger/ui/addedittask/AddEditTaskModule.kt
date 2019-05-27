@@ -17,8 +17,8 @@ abstract class AddEditTaskModule {
     companion object {
         @Provides
         @PerActivity
-        @JvmStatic fun provideTaskId(activity: AddEditTaskActivity): String {
-            return activity.intent.getStringExtra(AddEditTaskActivity.ARGUMENT_EDIT_TASK_ID) ?: ""
+        @JvmStatic fun provideTaskId(activity: AddEditTaskActivity): Long {
+            return activity.intent.getLongExtra(AddEditTaskActivity.ARGUMENT_EDIT_TASK_ID, -1L)
         }
     }
 

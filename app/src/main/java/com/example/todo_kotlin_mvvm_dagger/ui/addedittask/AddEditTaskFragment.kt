@@ -42,5 +42,9 @@ class AddEditTaskFragment @Inject constructor(): DaggerFragment() {
         viewModel.error.observe(this, Observer {
             Snackbar.make(add_task_title, getString(R.string.empty_task_message), Snackbar.LENGTH_LONG).show()
         })
+        viewModel.taskViewModel.observe(this, Observer {
+            if (it.title != add_task_title.text.toString()) add_task_title.setText(it.title)
+            if (it.content != add_task_description.text.toString()) add_task_description.setText(it.content)
+        })
     }
 }
