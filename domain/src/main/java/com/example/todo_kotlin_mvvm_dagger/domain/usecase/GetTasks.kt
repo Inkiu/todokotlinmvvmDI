@@ -5,9 +5,8 @@ import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Single
-import javax.inject.Inject
 
-class GetTasks @Inject constructor(
+class GetTasks(
     private val taskRepository: ITaskRepository
 ) : ISingleUseCase<GetTasks.Param, GetTasks.Result> {
 

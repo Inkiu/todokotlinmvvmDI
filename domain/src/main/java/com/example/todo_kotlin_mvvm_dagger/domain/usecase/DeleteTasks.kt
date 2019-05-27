@@ -3,9 +3,8 @@ package com.example.todo_kotlin_mvvm_dagger.domain.usecase
 import com.example.todo_kotlin_mvvm_dagger.domain.ICompletableUseCase
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Completable
-import javax.inject.Inject
 
-class DeleteTasks @Inject constructor(
+class DeleteTasks(
     private val taskRepository: ITaskRepository
 ) : ICompletableUseCase<DeleteTasks.Param> {
 

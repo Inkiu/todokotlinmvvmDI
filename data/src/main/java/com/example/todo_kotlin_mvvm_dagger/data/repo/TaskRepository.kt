@@ -1,17 +1,15 @@
 package com.example.todo_kotlin_mvvm_dagger.data.repo
 
 import android.content.Context
-import com.example.todo_kotlin_mvvm_dagger.data.ApplicationContext
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.model.TaskFilterType
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.concurrent.atomic.AtomicLong
-import javax.inject.Inject
 
-class TaskRepository @Inject constructor(
-    @ApplicationContext private val context: Context
+class TaskRepository(
+    private val context: Context
 ) : ITaskRepository {
 
     private val tasksDatabase = mutableMapOf(

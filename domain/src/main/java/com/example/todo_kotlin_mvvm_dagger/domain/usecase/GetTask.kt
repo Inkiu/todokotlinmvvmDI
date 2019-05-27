@@ -4,9 +4,8 @@ import com.example.todo_kotlin_mvvm_dagger.domain.ISingleUseCase
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Single
-import javax.inject.Inject
 
-class GetTask @Inject constructor(
+class GetTask(
     private val taskRepository: ITaskRepository
 ) : ISingleUseCase<GetTask.Param, GetTask.Result> {
 

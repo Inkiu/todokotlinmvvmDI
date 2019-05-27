@@ -9,9 +9,7 @@ import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
-import dagger.Lazy
 import kotlinx.android.synthetic.main.taskdetail_act.*
-import javax.inject.Inject
 
 class TaskDetailActivity : BaseActivity() {
 
@@ -25,13 +23,11 @@ class TaskDetailActivity : BaseActivity() {
         }
     }
 
-    @Inject
     lateinit var viewModelFactory: TaskDetailViewModelFactory
     private val viewModel: TaskDetailViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(TaskDetailViewModel::class.java)
     }
 
-    @Inject
     lateinit var taskDetailFragmentProvider: Lazy<TaskDetailFragment>
 
     override fun getViewModel(): BaseViewModel {
@@ -48,8 +44,8 @@ class TaskDetailActivity : BaseActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         // Fragment
-        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
-                addFragment(taskDetailFragmentProvider.get(), R.id.contentFrame)
+//        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
+//                addFragment(taskDetailFragmentProvider.get(), R.id.contentFrame)
 
         // Setup Floating Action Button
         fab_edit_task.setOnClickListener {

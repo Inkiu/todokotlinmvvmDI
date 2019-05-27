@@ -13,19 +13,15 @@ import com.example.todo_kotlin_mvvm_dagger.R
 import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
 import com.example.todo_kotlin_mvvm_dagger.ui.detail.TaskDetailActivity
 import com.google.android.material.navigation.NavigationView
-import dagger.Lazy
 import kotlinx.android.synthetic.main.tasks_act.*
-import javax.inject.Inject
 
 class TasksActivity : BaseActivity() {
 
-    @Inject
     lateinit var viewModelFactory: TasksViewModelFactory
     private val viewModel: TasksViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(TasksViewModel::class.java)
     }
 
-    @Inject
     lateinit var taskFragmentProvider: Lazy<TasksFragment>
 
     override fun getViewModel(): BaseViewModel { return viewModel }
@@ -47,8 +43,8 @@ class TasksActivity : BaseActivity() {
         fab_add_task.setOnClickListener { viewModel.onAddNewTask() }
 
         // Fragment
-        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
-            addFragment(taskFragmentProvider.get(), R.id.contentFrame)
+//        supportFragmentManager.findFragmentById(R.id.contentFrame) ?:
+//            addFragment(taskFragmentProvider.get(), R.id.contentFrame)
 
         // observe
         observe(viewModel)

@@ -4,9 +4,8 @@ import com.example.todo_kotlin_mvvm_dagger.domain.ICompletableUseCase
 import com.example.todo_kotlin_mvvm_dagger.domain.model.Task
 import com.example.todo_kotlin_mvvm_dagger.domain.repo.ITaskRepository
 import io.reactivex.Completable
-import javax.inject.Inject
 
-class CreateTasks @Inject constructor(
+class CreateTasks(
     private val tasksRepository: ITaskRepository
 ) : ICompletableUseCase<CreateTasks.Param> {
 
