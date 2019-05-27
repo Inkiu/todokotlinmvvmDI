@@ -3,10 +3,12 @@ package com.example.todo_kotlin_mvvm_dagger.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.BaseActivity
 import com.example.todo_kotlin_mvvm_dagger.BaseViewModel
 import com.example.todo_kotlin_mvvm_dagger.R
+import com.example.todo_kotlin_mvvm_dagger.ui.addedittask.AddEditTaskActivity
 import dagger.Lazy
 import kotlinx.android.synthetic.main.taskdetail_act.*
 import javax.inject.Inject
@@ -50,7 +52,9 @@ class TaskDetailActivity : BaseActivity() {
                 addFragment(taskDetailFragmentProvider.get(), R.id.contentFrame)
 
         // Setup Floating Action Button
-        fab_edit_task.setOnClickListener { /* TODO */ }
+        fab_edit_task.setOnClickListener {
+            viewModel.onTaskEdit()
+        }
 
         // observe
         observe(viewModel)
@@ -62,5 +66,11 @@ class TaskDetailActivity : BaseActivity() {
     }
 
     private fun observe(viewModel: TaskDetailViewModel) {
+        viewModel.navigateEditTask.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {  taskId ->
+                startActivity(AddEditTaskActivity.createIntent(this, taskId))
+                finish()
+            }
+        })
     }
 }

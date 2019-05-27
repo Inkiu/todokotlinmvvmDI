@@ -18,6 +18,7 @@ class TaskDetailViewModel(
     val loadingState = MutableLiveData<Boolean>().apply { value = false }
 
     /* events */
+    val navigateEditTask = MutableLiveData<Event<Long>>()
     val error = MutableLiveData<Event<ErrorType>>()
 
     override fun onCreate() {
@@ -39,6 +40,10 @@ class TaskDetailViewModel(
                 onError = { /* TODO */ },
                 onComplete = { /* no-op */ }
             )
+    }
+
+    fun onTaskEdit() {
+        navigateEditTask.value = Event(taskId)
     }
 
     enum class ErrorType {

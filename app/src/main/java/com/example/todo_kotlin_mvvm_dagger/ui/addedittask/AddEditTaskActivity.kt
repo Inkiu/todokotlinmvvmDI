@@ -18,9 +18,10 @@ class AddEditTaskActivity : BaseActivity() {
 
     companion object {
         const val REQUEST_ADD_TASK = 1
+        const val REQUEST_EDIT_TASK = 2
         const val ARGUMENT_EDIT_TASK_ID = "EDIT_TASK_ID"
 
-        fun createIntent(context: Context, taskId: String = ""): Intent {
+        fun createIntent(context: Context, taskId: Long = -1L): Intent {
             return Intent(context, AddEditTaskActivity::class.java).apply {
                 putExtra(ARGUMENT_EDIT_TASK_ID, taskId)
             }
