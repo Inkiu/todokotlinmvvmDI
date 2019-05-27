@@ -1,9 +1,7 @@
 package com.example.todo_kotlin_mvvm_dagger.ui.detail
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todo_kotlin_mvvm_dagger.R
@@ -35,6 +33,20 @@ class TaskDetailFragment @Inject constructor(): DaggerFragment() {
         task_detail_complete.setOnCheckedChangeListener { _, checked ->
             viewModel.onTaskCompleteChange(checked)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_delete -> {
+                viewModel.onTaskDelete()
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.taskdetail_fragment_menu, menu)
     }
 
     private fun observe(viewModel: TaskDetailViewModel) {

@@ -72,5 +72,10 @@ class TaskDetailActivity : BaseActivity() {
                 finish()
             }
         })
+        viewModel.navigateBack.observe(this, Observer {
+            it.getContentIfNotHandled()?.let {
+                finish()
+            }
+        })
     }
 }
