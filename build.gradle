@@ -34,7 +34,7 @@ ext {
     jetpackVersion = '2.0.0-rc01'
 
     // app
-    daggerVersion = '2.16'
+    koinVersion = '2.0.0'
     rxJavaVersion = '2.2.0'
     rxKotlinVersion = '2.2.0'
     rxAndroidVersion = '2.0.2'

@@ -50,6 +50,11 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
 
+    // Koin
+    implementation "org.koin:koin-android-scope:$rootProject.koinVersion"
+    implementation "org.koin:koin-android-viewmodel:$rootProject.koinVersion"
+    implementation "org.koin:koin-android-ext:$rootProject.koinVersion"
+
     // Test Dependencies
     testImplementation "junit:junit:$rootProject.jnitVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.runnerVersion"
