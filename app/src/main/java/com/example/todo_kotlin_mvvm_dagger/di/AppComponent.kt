@@ -16,8 +16,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ActivityBindingModule::class,
         AppModule::class,
-        DataModule::class,
-        TasksModule::class
+        DataModule::class
     ]
 )
 interface AppComponent : AndroidInjector<TodoApplication> {
